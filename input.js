@@ -1,5 +1,6 @@
 export class InputHandler {
-    constructor(){
+    constructor(game){
+        this.game = game;
         this.keys = [];
         // Check for keys press and store in array only 1 time
         window.addEventListener('keydown', e => {
@@ -10,9 +11,7 @@ export class InputHandler {
                     e.key === 'Enter'
                 ) && this.keys.indexOf(e.key) === -1){
                 this.keys.push(e.key);
-            }
-            console.log(e.key, this.keys);
-
+            } else if (e.key === 'd') this.game.debug = !this.game.debug;
         })
         //check for keys release and delte from the array :)
         window.addEventListener('keyup', e => {

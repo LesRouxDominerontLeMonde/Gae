@@ -23,6 +23,7 @@ export class Player {
         this.currentState.enter(); //initialization when player is also initialized.
     }
     update(input, deltaTime){
+        this.checkCollision();
         this.currentState.handleInput(input);
         // Input is this.keys from imputHandler
 
@@ -58,18 +59,27 @@ export class Player {
         
         }
     draw(context){
-        context.fillStyle = 'blue';
-        context.fillRect(this.x, this.y, 32*1.5, 48*1.5);
+        if (this.game.debug) {
+            context.strokeRect(this.x, this.y, this.width*1.5, this.height*1.5);
+        }
         context.drawImage(this.image, this.frameX * this.width, this.frameY * this.height, this.width, this.height, this.x, this.y, 32*1.5, 48*1.5);
         context.beginPath();
-        //red circle
-        context.arc(this.x + (32 * 1.5) / 2, this.y + (48 * 1.5) / 2, 5, 0, 2 * Math.PI);
-        context.fillStyle = 'red';
-        context.fill();
+        
 
     }
     setState(stateNumber){
         this.currentState = this.states[stateNumber]
         this.currentState.enter();
+    }
+    checkCollision(){
+        this.game.enemies.forEach(enemy => {
+            if (enemy.x < this.x + this.width &&
+                enemy.x + enemy.width > this.x &&
+                enemy.y < this.y + this.height &&
+                enemy.y + enemy.height > this.y
+                ){
+                enemy.markedForDeletion = true;
+            }
+        });
     }
 }

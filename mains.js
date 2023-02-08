@@ -18,10 +18,11 @@ window.addEventListener('load', function(){
             this.height = height;
             this.background = new Background(this);
             this.player = new Player(this); //initialization of player
-            this.input = new InputHandler();
+            this.input = new InputHandler(this);
             this.enemies = [];
             this.enemyTimer = 0;
             this.enemyInterval = 2000;
+            this.debug = true;
         }
         update(deltaTime){
             this.background.update(this.player.x, this.player.y)
@@ -38,6 +39,9 @@ window.addEventListener('load', function(){
             }
             this.enemies.forEach(enemy => {
                 enemy.update(deltaTime, this.player.x, this.player.y);
+                if (enemy.markedForDeletion) {
+                    this.enemies.splice(this.enemies.indexOf(enemy), 1);
+                }
             });
 
         }
