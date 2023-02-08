@@ -16,6 +16,10 @@ LVL UP
 LVL UP interface
 
 
+TODO:
+Hardcoded size character and enemy? be careful
+in collision() in players.js 
+
 
 
 BUG: player moveement speed digonal */

@@ -28,7 +28,7 @@ class Enemy {
         //if (this.x < playerX) this.image = Toa_run;
         //else this.image = Toa_run_left;
 
-        // Check if off screen 
+        // Check if "off screen"
         if ((this.x > playerX + 500 ||
             this.x < playerX - 500) || 
             (this.y > playerY + 500 ||

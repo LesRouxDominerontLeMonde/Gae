@@ -4,7 +4,7 @@ export class Player {
     constructor(game){
         this.game = game; 
         // size of player match sprite sheet size
-        this.width = 32;
+        this.width = 32; 
         this.height = 48;
         this.x = -this.width*0.5;
         this.y = -this.height*0.5;
@@ -73,9 +73,9 @@ export class Player {
     }
     checkCollision(){
         this.game.enemies.forEach(enemy => {
-            if (enemy.x < this.x + this.width &&
+            if (enemy.x < this.x + this.width*1.5  &&
                 enemy.x + enemy.width > this.x &&
-                enemy.y < this.y + this.height &&
+                enemy.y < this.y + this.height*1.5 &&
                 enemy.y + enemy.height > this.y
                 ){
                 enemy.markedForDeletion = true;
