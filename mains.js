@@ -2,6 +2,7 @@ import { Player } from "./player.js";
 import { InputHandler } from "./input.js";
 import { Background } from "./background.js";
 import { ToaEnemy } from "./enemy.js";
+import { UI } from "./UI.js";
 //import array enemies ?
 window.addEventListener('load', function(){
     const canvas = canvas1;
@@ -19,10 +20,13 @@ window.addEventListener('load', function(){
             this.background = new Background(this);
             this.player = new Player(this); //initialization of player
             this.input = new InputHandler(this);
+            this.UI = new UI(this);
             this.enemies = [];
             this.enemyTimer = 0;
             this.enemyInterval = 2000;
             this.debug = true;
+            this.score = 0;
+            this.fontColor  = 'black';
         }
         update(deltaTime){
             this.background.update(this.player.x, this.player.y)
@@ -47,7 +51,6 @@ window.addEventListener('load', function(){
         }
         draw(context){
             context.save(); 
-            //not sur if save.restore change something .
             // subtract the camera's position from player's pos 
             context.translate(-this.cameraX, -this.cameraY);
             this.background.draw(context);
@@ -57,6 +60,9 @@ window.addEventListener('load', function(){
             });
             context.fillStyle = "red";
             context.restore();
+
+            // outside of save.restore, so = absolute pos.
+            this.UI.draw(context);
         }
         addEnemy(){
             this.enemies.push(new ToaEnemy(this));
