@@ -1,4 +1,4 @@
-import { Sitting, SittingLeft, Running, RunningLeft} from "./playerStates.js";
+import { Sitting, SittingLeft, Running, RunningLeft, Hit} from "./playerStates.js";
 
 export class Player {
     constructor(game){
@@ -18,7 +18,7 @@ export class Player {
         this.speedX = 0
         this.speedY = 0;
         this.maxSpeed = 5; 
-        this.states = [new Sitting(this), new SittingLeft(this), new Running(this), new RunningLeft(this)];
+        this.states = [new Sitting(this), new SittingLeft(this), new Running(this), new RunningLeft(this), new Hit(this)];
         this.currentState = this.states[0];
         this.currentState.enter(); //initialization when player is also initialized.
     }
@@ -77,8 +77,9 @@ export class Player {
                 enemy.x + enemy.width > this.x &&
                 enemy.y < this.y + this.height*1.5 &&
                 enemy.y + enemy.height > this.y
-                ){
+            ){
                 enemy.markedForDeletion = true;
+                states.setState(states.RUNNING);
             }
         });
     }

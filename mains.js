@@ -45,6 +45,7 @@ window.addEventListener('load', function(){
                 enemy.update(deltaTime, this.player.x, this.player.y);
                 if (enemy.markedForDeletion) {
                     this.enemies.splice(this.enemies.indexOf(enemy), 1);
+                    this.score++;
                 }
             });
 

@@ -2,7 +2,8 @@ const states = {
     SITTING: 0,
     SITTINGLEFT: 1,
     RUNNING: 2,
-    RUNNINGLEFT: 3
+    RUNNINGLEFT: 3,
+    HIT: 4
 }
 
 class State {
@@ -110,6 +111,25 @@ export class RunningLeft extends State {
             this.player.setState(states.SITTINGLEFT);
         }
         else if (input.includes('ArrowRight')) {
+            this.player.setState(states.RUNNING);
+        }
+    }
+}
+
+export class Hit extends State {
+    constructor(player){
+        super('HIT'); 
+        this.player = player;
+    }
+    enter(){
+        this.player.image = B_hit;
+        this.player.width = 32;
+        this.player.height = 144/3; 
+        this.player.maxFrame = 3;
+        this.player.frameInterval = 1000/20;
+    }
+    handleInput(input){
+        if (this.player.frameY >= this.player.maxFrame -1) {
             this.player.setState(states.RUNNING);
         }
     }
